@@ -20,33 +20,47 @@ def isValidChessBoard(dictionary):
             if chess_piece[1:len(chess_piece)] != correct_order_down[location]:
                 
                 return False
-           
-    first_piece_in_up_board = dictionary["8a"]
-    color_up = first_piece_in_up_board[0]
-    for correct_location_up, piece_up in correct_order_up.items():
-        piece_in_up_board = dictionary[correct_location_up] 
-        if piece_in_up_board[0] != color_up:
-            return False
+    try:    
+        first_piece_in_up_board = dictionary["8a"]
+        color_up = first_piece_in_up_board[0]
+        for correct_location_up, piece_up in correct_order_up.items():
+            piece_in_up_board = dictionary[correct_location_up]
+            if piece_in_up_board[0] != color_up:
+                return False
+    except KeyError:
+        return False
 
-    first_piece_in_down_board = dictionary["1a"]
-    color_down = first_piece_in_down_board[0]
-    for correct_location_down, piece_down in correct_order_down.items():
-        piece_in_down_board = dictionary[location] 
-        if piece_in_down_board[0] != color_down:
-            return False
+    try:
+        first_piece_in_down_board = dictionary["1a"]
+        color_down = first_piece_in_down_board[0]
+        for correct_location_down, piece_down in correct_order_down.items():
+            piece_in_down_board = dictionary[location] 
+            if piece_in_down_board[0] != color_down:
+                return False
+    except KeyError:
+        return False
 
-        return True 
+    return True 
 
 
 def main():
-    board = {"8a":"wrook", "8b":"wknight", "8c":"wbishop", "8d":"wqueen", "8e":"wking",
+    board = {"8a":"wrook","8b":"wknight", "8c":"wbishop", "8d":"wqueen", "8e":"wking",
         "8f":"wbishop","8g":"wknight", "8h":"wrook",
         "a7":"wpawn","b7":"wpawn","c7":"wpawn","d7":"wpawn","e7":"wpawn","f7":"wpawn","g7":"wpawn","h7":"wpawn",
         "1a":"brook", "1b":"bknight", "1c":"bbishop", "1d":"bqueen", "1e":"bking",
         "1f":"bbishop","1g":"bknight", "1h":"brook", 
         "a2":"bpawn","b2":"bpawn","c2":"bpawn","d2":"bpawn","e2":"bpawn","f2":"bpawn","g2":"bpawn","h2":"bpawn"}
+    
+    #missing :"8g":"wknight"
+    test_board_1 = {"8a":"wrook","8b":"wknight", "8c":"wbishop", "8d":"wqueen", "8e":"wking",
+        "8f":"wbishop", "8h":"wrook",
+        "a7":"wpawn","b7":"wpawn","c7":"wpawn","d7":"wpawn","e7":"wpawn","f7":"wpawn","g7":"wpawn","h7":"wpawn",
+        "1a":"brook", "1b":"bknight", "1c":"bbishop", "1d":"bqueen", "1e":"bking",
+        "1f":"bbishop","1g":"bknight", "1h":"brook", 
+        "a2":"bpawn","b2":"bpawn","c2":"bpawn","d2":"bpawn","e2":"bpawn","f2":"bpawn","g2":"bpawn","h2":"bpawn"}
 
-    print(isValidChessBoard(board))
+    print("valid board except True : ", isValidChessBoard(board))
+    print("not valid board except False :" , isValidChessBoard(test_board_1))
 
 # Driver program
 if __name__ == "__main__":
